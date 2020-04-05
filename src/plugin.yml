@@ -3,5 +3,7 @@ author: BullCheat
 version: "1.0"
 main: com.alex00.cineglow.Cineglow
 commands:
-  glow:
+  cineglow:
+    aliases:
+      - glow
     permission: cineglow.glow
