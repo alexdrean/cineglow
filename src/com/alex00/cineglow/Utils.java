@@ -1,11 +1,9 @@
 package com.alex00.cineglow;
 
-import net.minecraft.server.v1_15_R1.EntityPlayer;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
-
-import java.util.Collection;
+import org.inventivetalent.glow.GlowAPI;
+import org.jetbrains.annotations.Nullable;
 
 public class Utils {
 
@@ -29,13 +27,19 @@ public class Utils {
     public static String onoff(boolean value, boolean feminine, boolean plural) {
         String f = feminine ? "e" : "";
         String p = plural ? "s" : "";
-        return (value ? "activé" : "désactivé") + feminine + plural;
+        return (value ? "activé" : "désactivé") + f + p;
     }
 
-    // fixme
-    public static Collection<? extends Player> getNearbyPlayers(CraftPlayer cp) {
-        EntityPlayer p = cp.getHandle();
-        return Bukkit.getOnlinePlayers();
+    @Nullable
+    public static GlowAPI.Color getGlowColor(Player subject, Player viewer) {
+        if (subject.getUniqueId().equals(viewer.getUniqueId()))
+            return null;
+        try {
+            if (Bukkit.getPluginManager().isPluginEnabled("GriefPrevention")) {
+                return GriefPreventionHook.getGlowColor(subject, viewer);
+            }
+        } catch (Exception ignored) {}
+        return null;
     }
 
 }

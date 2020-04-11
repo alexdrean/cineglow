@@ -2,8 +2,33 @@ name: Cineglow
 author: BullCheat
 version: "1.0"
 main: com.alex00.cineglow.Cineglow
+depend: [GlowAPI]
+softdepend: [GriefPrevention]
+api-version: "1.15"
 commands:
   cineglow:
-    aliases:
-      - glow
-    permission: cineglow.glow
+    aliases: [glow]
+permissions:
+  # Plugin
+  cineglow.*:
+    children:
+      cineglow.vision.*: true
+      cineglow.self.*: true
+  # Vision
+  cineglow.vision.*:
+    children:
+      cineglow.vision.temporary: true
+      cineglow.vision.permanent: true
+      cineglow.vision.nocooldown: true
+  cineglow.vision.temporary: {}
+  cineglow.vision.permanent: {}
+  cineglow.vision.nocooldown: {}
+  # Self
+  cineglow.self.*:
+    children:
+      cineglow.self.temporary: true
+      cineglow.self.permanent: true
+      cineglow.self.nocooldown: true
+  cineglow.self.temporary: {}
+  cineglow.self.permanent: {}
+  cineglow.self.nocooldown: {}
